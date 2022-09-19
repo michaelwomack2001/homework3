@@ -77,6 +77,10 @@ public class BacCalculationFragment extends Fragment {
         View mainView = inflater.inflate(R.layout.fragment_bac_calculation, container, false);
         initialWeight = mainView.findViewById(R.id.initial_weight);
         drinkTally = mainView.findViewById(R.id.num_drink);
+
+        mainView.findViewById(R.id.addDrink).setEnabled(false);
+        mainView.findViewById(R.id.view_drink).setEnabled(false);
+
         mainView.findViewById(R.id.addDrink).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -109,6 +113,8 @@ public class BacCalculationFragment extends Fragment {
                     status.setText("You are safe");
                     drawable.setColor(Color.GREEN);
                     user = new Profile();
+                    mainView.findViewById(R.id.addDrink).setEnabled(false);
+                    mainView.findViewById(R.id.view_drink).setEnabled(false);
                 }
                 catch(Exception e){
                     e.printStackTrace();
@@ -118,6 +124,7 @@ public class BacCalculationFragment extends Fragment {
 
         try {
             initialWeight.setText(Double.toString(user.getWeight()));
+            mainView.findViewById(R.id.addDrink).setEnabled(true);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -126,6 +133,9 @@ public class BacCalculationFragment extends Fragment {
         try{
             drinksTallyInt = drinksList.size();
             drinkTally.setText(Integer.toString(drinksTallyInt));
+            if(drinksList.size() != 0) {
+                mainView.findViewById(R.id.view_drink).setEnabled(true);
+            }
         }
         catch (Exception e){
             e.printStackTrace();
